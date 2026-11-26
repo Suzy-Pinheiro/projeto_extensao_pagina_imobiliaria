@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a2a">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gerenciar imóveis | Joice Motta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              forest: "#102a2a",
+              "forest-light": "#1b4140",
+              sand: "#f7f7f3",
+              gold: "#d8aa62"
+            },
+            fontFamily: {
+              sans: ["DM Sans", "sans-serif"],
+              display: ["Playfair Display", "serif"]
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/admin.js"></script>
+  </head>
+  <body class="min-h-screen bg-sand font-sans text-slate-800 antialiased">
+    <header class="bg-forest text-white">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-5 py-5 sm:px-8">
+        <a class="font-display text-xl sm:text-2xl" href="index.html">Joice Motta <span class="font-sans text-sm font-normal text-white/60">· IMÓVEIS</span></a>
+        <a class="inline-flex min-h-11 items-center rounded-full border border-white/25 px-4 text-sm text-white/80 transition hover:border-gold hover:text-gold" href="index.html">Voltar à vitrine</a>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
+      <div class="mb-7">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-forest-light">Área privada</p>
+        <h1 class="mt-2 font-display text-3xl text-forest sm:text-4xl">Gerenciar imóveis</h1>
+      </div>
+
+      <div id="config-notice" class="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-950" role="alert" hidden>
+        Configure a URL do projeto e a chave publicável em <code>js/supabase-config.js</code>, execute <code>supabase/schema.sql</code> no SQL Editor do Supabase e crie a conta de administradora antes de usar este painel. Não use a chave <code>service_role</code> no site.
+      </div>
+
+      <section id="login-section" class="max-w-lg rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7" aria-labelledby="login-title" hidden>
+        <h2 id="login-title" class="font-display text-2xl text-forest">Entrar como administradora</h2>
+        <p class="mb-5 mt-2 text-sm leading-6 text-slate-600">Use a conta criada no Supabase e autorizada para administrar imóveis. Não há cadastro público nesta página.</p>
+        <form id="login-form" class="grid gap-4">
+          <label class="field-label">E-mail
+            <input class="field-input" type="email" name="email" autocomplete="username" required>
+          </label>
+          <label class="field-label">Senha
+            <input class="field-input" type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button class="min-h-12 rounded-xl bg-forest px-5 py-3 font-semibold text-white transition hover:bg-forest-light" type="submit">Entrar</button>
+        </form>
+      </section>
+
+      <section id="dashboard-section" hidden aria-labelledby="dashboard-title">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 id="dashboard-title" class="font-display text-2xl text-forest">Seu inventário</h2>
+            <p class="mt-1 text-sm text-slate-600">Imóveis alugados, vendidos ou em rascunho ficam visíveis somente nesta área autenticada.</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button id="new-property-button" class="min-h-11 rounded-full bg-forest px-5 text-sm font-semibold text-white transition hover:bg-forest-light" type="button">+ Novo imóvel</button>
+            <button id="logout-button" class="min-h-11 rounded-full border border-slate-300 px-5 text-sm font-semibold text-slate-700 transition hover:border-forest" type="button">Sair</button>
+          </div>
+        </div>
+
+        <p id="admin-status" class="mb-4 text-sm text-slate-700" role="status" aria-live="polite"></p>
+
+        <section id="editor-section" class="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7" aria-labelledby="editor-title" hidden>
+          <h3 id="editor-title" class="mb-5 font-display text-2xl text-forest">Adicionar imóvel</h3>
+          <form id="property-form">
+            <input type="hidden" name="id">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="field-label">Código do imóvel
+                <input class="field-input" type="text" name="code" maxlength="30" required>
+              </label>
+              <label class="field-label">Título
+                <input class="field-input" type="text" name="titulo" maxlength="120" required>
+              </label>
+              <label class="field-label">Finalidade
+                <select class="field-input" name="finalidade" required>
+                  <option value="">Selecione</option>
+                  <option value="comprar">Comprar</option>
+                  <option value="alugar">Alugar</option>
+                </select>
+              </label>
+              <label class="field-label">Tipo de imóvel
+                <select class="field-input" name="tipo" required>
+                  <option value="">Selecione</option>
+                  <option>Apartamento</option>
+                  <option>Casa</option>
+                  <option>Terreno</option>
+                  <option>Comercial</option>
+                </select>
+              </label>
+              <label class="field-label">Bairro
+                <input class="field-input" type="text" name="bairro" maxlength="100" required>
+              </label>
+              <label class="field-label">Preço em reais
+                <input class="field-input" type="number" name="preco" min="0" step="0.01" required>
+              </label>
+              <label class="field-label">Quartos
+                <input class="field-input" type="number" name="quartos" min="0" step="1" value="0" required>
+              </label>
+              <label class="field-label">Vagas
+                <input class="field-input" type="number" name="vagas" min="0" step="1" value="0" required>
+              </label>
+              <label class="field-label">Área (m²)
+                <input class="field-input" type="number" name="area" min="0" step="0.01" required>
+              </label>
+              <label class="field-label">Status
+                <select class="field-input" name="status" required>
+                  <option value="rascunho">Rascunho</option>
+                  <option value="disponivel">Disponível</option>
+                  <option value="alugado">Alugado</option>
+                  <option value="vendido">Vendido</option>
+                </select>
+              </label>
+              <label class="field-label sm:col-span-2">Descrição padrão das novas fotos
+                <input class="field-input" type="text" name="imagem_alt" maxlength="200" placeholder="Ex.: sala ampla com varanda iluminada">
+              </label>
+              <label class="field-label sm:col-span-2">Adicionar fotos (JPEG, PNG ou WebP; até 10 MB cada)
+                <input class="field-input" type="file" name="imagens" accept="image/jpeg,image/png,image/webp" multiple>
+                <span id="image-help" class="text-xs font-normal text-slate-500">Até 15 fotos por imóvel. Novos imóveis precisam de pelo menos uma foto.</span>
+              </label>
+              <div class="sm:col-span-2">
+                <p id="photo-count" class="mb-3 text-sm font-semibold text-slate-600"></p>
+                <div id="photo-editor-list" class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"></div>
+              </div>
+              <label class="admin-check sm:col-span-2">
+                <input type="checkbox" name="publicado">
+                Publicar na vitrine quando o status for Disponível
+              </label>
+            </div>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <button id="save-property-button" class="min-h-12 rounded-xl bg-forest px-5 py-3 font-semibold text-white transition hover:bg-forest-light" type="submit">Salvar imóvel</button>
+              <button id="cancel-edit-button" class="min-h-12 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:border-forest" type="button">Cancelar</button>
+            </div>
+          </form>
+        </section>
+
+        <div id="property-list" class="grid gap-3" aria-live="polite"></div>
+      </section>
+
+      <p id="login-status" class="mt-4 max-w-lg text-sm text-slate-700" role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>

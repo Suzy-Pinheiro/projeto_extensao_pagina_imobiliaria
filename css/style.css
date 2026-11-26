@@ -1,0 +1,251 @@
+:root {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.hero-glow {
+  background:
+    radial-gradient(ellipse at 82% 15%, rgb(216 170 98 / 14%), transparent 32%),
+    radial-gradient(ellipse at 4% 95%, rgb(27 65 64 / 80%), transparent 44%);
+}
+
+.profile-photo {
+  box-shadow: 0 0 0 8px rgb(255 255 255 / 4%);
+}
+
+.field-label {
+  display: grid;
+  gap: 0.45rem;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field-input {
+  width: 100%;
+  min-height: 2.875rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  background-color: #fff;
+  padding: 0.65rem 0.8rem;
+  color: #1e293b;
+  font: inherit;
+  font-weight: 400;
+}
+
+.field-input:focus {
+  border-color: #1b4140;
+  outline: 3px solid rgb(27 65 64 / 14%);
+}
+
+.field-input::placeholder {
+  color: #94a3b8;
+}
+
+.accordion-panel[hidden] {
+  display: none;
+}
+
+.accordion-panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 280ms ease, opacity 220ms ease;
+}
+
+.accordion-panel.is-open {
+  opacity: 1;
+}
+
+.accordion-icon {
+  transition: transform 200ms ease;
+}
+
+.capture-toggle[aria-expanded="true"] .accordion-icon {
+  transform: rotate(45deg);
+}
+
+.property-card {
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 5%);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.property-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgb(15 23 42 / 9%);
+}
+
+.property-gallery {
+  position: relative;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.property-image-button {
+  display: block;
+  width: 100%;
+  min-height: 2.75rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.property-image {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  object-fit: cover;
+  background: #e2e8f0;
+}
+
+.gallery-control {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 9999px;
+  background: rgb(16 42 42 / 82%);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.gallery-control:hover {
+  background: #102a2a;
+}
+
+.gallery-control-previous {
+  left: 0.75rem;
+}
+
+.gallery-control-next {
+  right: 0.75rem;
+}
+
+.gallery-count {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  border-radius: 9999px;
+  background: rgb(16 42 42 / 82%);
+  padding: 0.25rem 0.6rem;
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.image-lightbox {
+  position: fixed;
+  width: min(94vw, 76rem);
+  box-sizing: border-box;
+  max-width: none;
+  max-height: 94vh;
+  overflow: visible;
+  border: 0;
+  border-radius: 1rem;
+  background: #102a2a;
+  padding: 1rem;
+  color: #fff;
+}
+
+.image-lightbox::backdrop {
+  background: rgb(3 12 12 / 88%);
+}
+
+.lightbox-image {
+  display: block;
+  width: 100%;
+  max-height: 82vh;
+  border-radius: 0.5rem;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  z-index: 1;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #102a2a;
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.form-status a {
+  color: #1b4140;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.admin-property-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 1rem;
+}
+
+.admin-property-photo {
+  width: 5rem;
+  height: 5rem;
+  flex: 0 0 auto;
+  border-radius: 0.75rem;
+  background: #e2e8f0;
+  object-fit: cover;
+}
+
+.admin-photo-item {
+  min-width: 0;
+}
+
+.admin-photo-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 0.75rem;
+  background: #e2e8f0;
+  object-fit: cover;
+}
+
+.admin-check {
+  display: flex;
+  min-height: 2.875rem;
+  align-items: center;
+  gap: 0.65rem;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.admin-check input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #1b4140;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

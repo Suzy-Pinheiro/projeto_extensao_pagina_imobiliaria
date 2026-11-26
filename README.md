@@ -2,6 +2,12 @@
 
 Landing page imobiliária de uso mobile-first, com vitrine dinâmica, formulários de contato pelo WhatsApp e uma área administrativa para cadastrar imóveis e gerenciar fotos.
 
+## Observação sobre a entrega
+
+O projeto completo está publicado no GitHub em: https://github.com/Suzy-Pinheiro/projeto_extensao_pagina_imobiliaria
+
+Não foi possível incluir todos os arquivos e detalhes técnicos do desenvolvimento no relatório em PDF. Para consultar o código-fonte, o esquema do banco de dados, as configurações e as instruções completas de execução e publicação, utilize o repositório do projeto indicado acima.
+
 ## Funcionalidades
 
 - Página pública com apresentação da corretora e formulários de captação para clientes e proprietários.
